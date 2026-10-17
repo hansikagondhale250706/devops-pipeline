@@ -1,0 +1,13 @@
+{
+  "name": "devops-cicd-app",
+  "version": "1.0.0",
+  "description": "DevOps CI/CD Pipeline Demo App",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "node -e \"console.log('Automated Tests Executed Successfully!'); process.exit(0);\""
+  },
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}

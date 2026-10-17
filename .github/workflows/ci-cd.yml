@@ -1,0 +1,40 @@
+name: DevOps Automated CI/CD Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  ci-cd-pipeline:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Step 1 - Checkout Source Code
+      uses: actions/checkout@v4
+
+    - name: Step 2 - Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+
+    - name: Step 3 - Install Dependencies
+      run: npm install
+
+    - name: Step 4 - Run Automated Tests
+      run: npm test
+
+    - name: Step 5 - Build Container with Docker Compose
+      run: docker compose build
+
+    - name: Step 6 - Run Application Container
+      run: docker compose up -d
+
+    - name: Step 7 - Validate Live Deployment Endpoint
+      run: |
+        sleep 5
+        curl -f http://localhost:3000/health || exit 1
+
+    - name: Step 8 - Tear Down Container
+      run: docker compose down
